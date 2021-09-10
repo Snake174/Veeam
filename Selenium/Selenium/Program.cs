@@ -21,7 +21,7 @@ namespace Selenium
             string Language = ini.Read("Language", "Settings");
 
             var options = new ChromeOptions();
-            options.BinaryLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GoogleChromePortable", "App", "Chrome-bin", "chrome.exe");
+            //options.BinaryLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GoogleChromePortable", "App", "Chrome-bin", "chrome.exe");
             options.AddArgument("--window-position=0,0");
             options.AddArgument("--start-fullscreen");
             options.AddArgument("--incognito");
