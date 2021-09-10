@@ -73,6 +73,6 @@
     <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.93.0.4577.1500\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.93.0.4577.1500\build\Selenium.WebDriver.ChromeDriver.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>XCOPY "$(SolutionDir)GoogleChromePortable" "$(TargetDir)\GoogleChromePortable" /S /Y /I</PostBuildEvent>
   </PropertyGroup>
 </Project>

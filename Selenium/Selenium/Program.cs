@@ -17,9 +17,11 @@ namespace Selenium
         {
             INI ini = new INI("settings.ini");
             int waitingVacanciesCount = Int32.Parse(ini.Read("WaitingVacanciesCount", "Settings"));
+            string Department = ini.Read("Department", "Settings");
+            string Language = ini.Read("Language", "Settings");
 
             var options = new ChromeOptions();
-            //options.BinaryLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GoogleChromePortable", "App", "Chrome-bin", "chrome.exe");
+            options.BinaryLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GoogleChromePortable", "App", "Chrome-bin", "chrome.exe");
             options.AddArgument("--window-position=0,0");
             options.AddArgument("--start-fullscreen");
             options.AddArgument("--incognito");
@@ -53,21 +55,21 @@ namespace Selenium
                     cookieClose.Click();
 
                     // Выбор отдела
-                    const string departmentXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[2]/div/div/button";
-                    IWebElement department = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(departmentXPath)));
+                    //const string departmentXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[2]/div/div/button";
+                    IWebElement department = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//button[.='Все отделы']")));
                     department.Click();
 
-                    const string devProductsXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[2]/div/div/div/a[4]";
-                    IWebElement devProducts = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(devProductsXPath)));
+                    //const string devProductsXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[2]/div/div/div/a[4]";
+                    IWebElement devProducts = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath($"//a[.='{Department}']")));
                     devProducts.Click();
 
                     // Выбор языка
-                    const string languagesXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[3]/div/div/button";
-                    IWebElement languages = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(languagesXPath)));
+                    //const string languagesXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[3]/div/div/button";
+                    IWebElement languages = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//button[.='Все языки']")));
                     languages.Click();
 
-                    const string englishXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[3]/div/div/div/div[2]/label";
-                    IWebElement english = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(englishXPath)));
+                    //const string englishXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[3]/div/div/div/div[2]/label";
+                    IWebElement english = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath($"//label[.='{Language}']")));
                     english.Click();
 
                     // Количество выданных вакансий
