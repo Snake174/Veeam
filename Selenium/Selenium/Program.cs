@@ -42,42 +42,49 @@ namespace Selenium
                 driver.Navigate().GoToUrl("https://careers.veeam.ru/vacancies");
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
 
-                // Закрываем окно с подтверждением cookie файлов
-                const string cookieXPath = "#cookiescript_injected";
-                wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(cookieXPath)));
+                try
+                {
+                    // Закрываем окно с подтверждением cookie файлов
+                    const string cookieXPath = "#cookiescript_injected";
+                    wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(cookieXPath)));
 
-                const string cookieCloseXPath = "#cookiescript_close";
-                IWebElement cookieClose = wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector(cookieCloseXPath)));
-                cookieClose.Click();
+                    const string cookieCloseXPath = "#cookiescript_close";
+                    IWebElement cookieClose = wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector(cookieCloseXPath)));
+                    cookieClose.Click();
 
-                // Выбор отдела
-                const string departmentXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[2]/div/div/button";
-                IWebElement department = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(departmentXPath)));
-                department.Click();
+                    // Выбор отдела
+                    const string departmentXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[2]/div/div/button";
+                    IWebElement department = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(departmentXPath)));
+                    department.Click();
 
-                const string devProductsXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[2]/div/div/div/a[4]";
-                IWebElement devProducts = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(devProductsXPath)));
-                devProducts.Click();
+                    const string devProductsXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[2]/div/div/div/a[4]";
+                    IWebElement devProducts = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(devProductsXPath)));
+                    devProducts.Click();
 
-                // Выбор языка
-                const string languagesXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[3]/div/div/button";
-                IWebElement languages = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(languagesXPath)));
-                languages.Click();
+                    // Выбор языка
+                    const string languagesXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[3]/div/div/button";
+                    IWebElement languages = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(languagesXPath)));
+                    languages.Click();
 
-                const string englishXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[3]/div/div/div/div[2]/label";
-                IWebElement english = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(englishXPath)));
-                english.Click();
+                    const string englishXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[1]/div/div[3]/div/div/div/div[2]/label";
+                    IWebElement english = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(englishXPath)));
+                    english.Click();
 
-                // Количество выданных вакансий
-                const string vacanciesXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div";
-                IWebElement vacancies = wait.Until(ExpectedConditions.ElementExists(By.XPath(vacanciesXPath)));
+                    // Количество выданных вакансий
+                    const string vacanciesXPath = "/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div";
+                    IWebElement vacancies = wait.Until(ExpectedConditions.ElementExists(By.XPath(vacanciesXPath)));
 
-                int vacanciesCount = vacancies.FindElements(By.CssSelector("a.card")).Count;
+                    int vacanciesCount = vacancies.FindElements(By.CssSelector("a.card")).Count;
 
-                Console.WriteLine("========================================");
-                Console.WriteLine($"Кол-во полученных вакансий : {vacanciesCount}");
-                Console.WriteLine($"Кол-во ожидаемых вакансий  : {waitingVacanciesCount}");
-                Console.WriteLine("========================================");
+                    Console.WriteLine("========================================");
+                    Console.WriteLine($"Кол-во полученных вакансий : {vacanciesCount}");
+                    Console.WriteLine($"Кол-во ожидаемых вакансий  : {waitingVacanciesCount}");
+                    Console.WriteLine("========================================");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Ошибка: {e.Message}");
+                }
             }
 
             Console.ReadLine();
