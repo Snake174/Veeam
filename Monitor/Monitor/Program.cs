@@ -41,7 +41,10 @@ namespace Monitor
                             foreach (Process p in processes)
                             {
                                 if ((DateTime.Now - p.StartTime).TotalMilliseconds >= TTL)
+                                {
                                     p.Kill();
+                                    Log.Write($"Process {checkedProcess} [{p.Id}] was closed (work time more than {TTL / 60000} min)");
+                                }
                             }
 
                             Thread.Sleep(checkFreq);
@@ -55,8 +58,8 @@ namespace Monitor
                 t.IsBackground = true;
             }), null);
 
-            Console.WriteLine("Идёт проверка...");
-            Console.WriteLine("Нажмите [Enter] чтобы выйти");
+            Console.WriteLine("Checking...");
+            Console.WriteLine("Press [Enter] to exit");
             Console.ReadLine();
         }
     }
